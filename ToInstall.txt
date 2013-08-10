@@ -1,7 +1,6 @@
-** With Ubuntu, I'll first look through the current Ubuntu Guide for changes.  http://ubuntuguide.org/
+echo ** With Ubuntu, I'll first look through the current Ubuntu Guide for changes.  http://ubuntuguide.org/
 
-http://debianhelp.wordpress.com/2012/09/30/to-do-list-after-installing-ubuntu-12-10-aka-quantal-quetzal/
-
+echo ** http://debianhelp.wordpress.com/2012/09/30/to-do-list-after-installing-ubuntu-12-10-aka-quantal-quetzal/
 
 wget --quiet http://packages.medibuntu.org/medibuntu-key.gpg -O - | sudo apt-key add -
 wget --quiet http://dl.google.com/linux/linux_signing_key.pub -O - | sudo apt-key add -
@@ -12,14 +11,12 @@ sudo apt-get update
 
 wget http://www.truecrypt.org/download/truecrypt-7.1a-linux-x86.tar.gz
 wget http://www.truecrypt.org/download/truecrypt-7.1a-linux-x64.tar.gz
-tar -zxvf truecrypt*.gz
+tar -zxvf truecrypt-7.1a-linux-x64.tar.gz
+chmod +x  truecrypt-7.1a-setup-x64
 sudo ./truecrypt-7.1a-setup-x64
 
-
-Get fluento pack
-
+sudo apt-get install build-essential linux-headers-$(uname -r)
 sudo apt-get install -y bleachbit
-
 sudo apt-get install -y app-install-data-medibuntu apport-hooks-medibuntu
 sudo apt-get install -y w64codecs libdvdcss2
 sudo apt-get install -y libdvdnav4
@@ -33,6 +30,8 @@ sudo apt-get install -y ia32-libs
 sudo apt-get install -y firefox
 
 sudo apt-get install -y xul-ext-adblock-plus
+sudo apt-get install adblock-plus
+sudo apt-get install indicator-applet-appmenu
 
 sudo apt-get install -y ffmpeg
 sudo apt-get install -y xmms2
@@ -48,7 +47,6 @@ sudo apt-get install -y p7zip-rar
 
 sudo apt-get install -y gparted
 
-
 sudo apt-get install -y celestia
 sudo apt-get install -y stellarium
 
@@ -57,11 +55,24 @@ wget http://video4fuze.googlecode.com/files/video4fuze-0.6_all.deb
 sudo dpkg -i fuzemux-0.1_amd64.deb
 sudo dpkg -i video4fuze-0.6_all.deb
 
-
 sudo apt-get install -y googleearth-package
 make-googleearth-package --force
 
-
 sudo add-apt-repository "deb http://www.remastersys.com/ubuntu precise main"
 wget -q "http://www.remastersys.com/ubuntu/remastersys.gpg.key" -O- | sudo apt-key add -
-sudo apt-get update && sudo apt-get install remastersys remastersys-gui
+sudo apt-get update && sudo apt-get install -y remastersys remastersys-gui
+
+wget http://download3.vmware.com/software/vmplayer/VMware-Player-5.0.2-1031769.x86_64.bundle 
+chmod +x VMware-Player-5.0.2-1031769.x86_64.bundle 
+sudo ./VMware-Player-5.0.2-1031769.x86_64.bundle 
+
+sudo apt-get install -y azureus
+sudo apt-get install -y azupdater
+gconftool-2 -t string -s /desktop/gnome/url-handlers/magnet/command "/opt/azureus/azureus %s"
+gconftool-2 -s /desktop/gnome/url-handlers/magnet/needs_terminal false -t bool
+gconftool-2 -t bool -s /desktop/gnome/url-handlers/magnet/enabled true
+
+sudo apt-get install -y xamarinstudio
+sudo apt-get install -y monodevelop
+sudo apt-get install -y Anjuta
+sudo apt-get install -y eclipse
