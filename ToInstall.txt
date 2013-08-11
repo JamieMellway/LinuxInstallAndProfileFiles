@@ -34,6 +34,12 @@ tar -zxvf truecrypt-7.1a-linux-x64.tar.gz
 chmod +x  truecrypt-7.1a-setup-x64
 sudo ./truecrypt-7.1a-setup-x64
 
+echo ** Config editor
+sudo apt-get install -y gconf-editor
+
+echo ** "Open terminal here" context menu in Nautilus 
+nautilus-open-terminal 
+
 echo ** Media support
 sudo apt-get install -y ubuntu-restricted-extras
 sudo apt-get install -y app-install-data-medibuntu apport-hooks-medibuntu
@@ -43,6 +49,7 @@ sudo apt-get install -y audacious
 sudo apt-get install -y vlc vlc-plugin-pulse
 sudo apt-get install -y mplayer2
 sudo apt-get install -y streamripper
+sudo apt-get install -y mencoder
 
 echo ** DVD Support
 sudo apt-get install -y w64codecs libdvdcss2
@@ -119,3 +126,5 @@ sudo apt-get install -y google-talkplugin
 echo ** More text editors
 sudo apt-get install -y gedit gedit-plugins gedit-developer-plugins
 sudo apt-get install -y geany geany-plugins
+
+
