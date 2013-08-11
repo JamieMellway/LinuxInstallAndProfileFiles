@@ -1,80 +1,118 @@
-echo ** With Ubuntu, I'll first look through the current Ubuntu Guide for changes.  http://ubuntuguide.org/
-
-echo ** http://debianhelp.wordpress.com/2012/09/30/to-do-list-after-installing-ubuntu-12-10-aka-quantal-quetzal/
+echo ** First look through the current Ubuntu Guide and debianhelp's "To Do List After Installing" for changes and ideas.  
+echo ** httphttp://ubuntuguide.org/
+echo ** http://debianhelp.wordpress.com/
 
 wget --quiet http://packages.medibuntu.org/medibuntu-key.gpg -O - | sudo apt-key add -
 wget --quiet http://dl.google.com/linux/linux_signing_key.pub -O - | sudo apt-key add -
+wget -q "http://www.remastersys.com/ubuntu/remastersys.gpg.key" -O- | sudo apt-key add -
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb http://dl.google.com/linux/talkplugin/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 
 sudo add-apt-repository "deb http://packages.medibuntu.org/ $(lsb_release -sc) free non-free" 
 sudo add-apt-repository ppa:n-muench/vlc
 sudo add-apt-repository ppa:keks9n/monodevelop-latest
+sudo add-apt-repository "deb http://www.remastersys.com/ubuntu precise main"
+sudo add-apt-repository ppa:stebbins/handbrake-releases
+sudo add-apt-repository ppa:yannubuntu/boot-repair
 sudo apt-get update
 
+echo ** Gnome Fallback
+sudo apt-get install -y gnome-shell
+sudo apt-get install -y gnome-session-fallback
+sudo apt-get install -y indicator-applet-appmenu
+sudo apt-get install -y gnome-tweak-tool
+
+echo ** Build Essentials
+sudo apt-get install -y build-essential linux-headers-$(uname -r) checkinstall cdbs devscripts dh-make fakeroot libxml-parser-perl check avahi-daemon
+
+echo ** TrueCrypt disk encryption software 
 wget http://www.truecrypt.org/download/truecrypt-7.1a-linux-x86.tar.gz
 wget http://www.truecrypt.org/download/truecrypt-7.1a-linux-x64.tar.gz
 tar -zxvf truecrypt-7.1a-linux-x64.tar.gz
 chmod +x  truecrypt-7.1a-setup-x64
 sudo ./truecrypt-7.1a-setup-x64
 
-sudo apt-get install -y build-essential linux-headers-$(uname -r)
-
-sudo apt-get install -y bleachbit
-
+echo ** Media support
 sudo apt-get install -y ubuntu-restricted-extras
 sudo apt-get install -y app-install-data-medibuntu apport-hooks-medibuntu
-sudo apt-get install -y w64codecs libdvdcss2
-sudo apt-get install -y libdvdnav4
-sudo apt-get install -y libdvdread4
-sudo /usr/share/doc/libdvdread4/./install-css.sh
-
 sudo apt-get install -y ffmpeg
 sudo apt-get install -y xmms2
 sudo apt-get install -y audacious
 sudo apt-get install -y vlc vlc-plugin-pulse
 sudo apt-get install -y mplayer2
+sudo apt-get install -y streamripper
 
+echo ** DVD Support
+sudo apt-get install -y w64codecs libdvdcss2
+sudo apt-get install -y libdvdnav4
+sudo apt-get install -y libdvdread4
+sudo /usr/share/doc/libdvdread4/./install-css.sh
+sudo apt-get install -y k3b libk3b6-extracodecs
+sudo apt-get install -y handbrake-gtk handbrake-cli
+sudo apt-get install -y k9copy
+sudo apt-get install -y dvdrip rar
+sudo apt-get install -y acidrip
+
+echo ** 32bit support on 64bit system
 sudo apt-get install -y ia32-libs
 
+echo ** Firefox with AdBlock Plus
 sudo apt-get install -y firefox
 sudo apt-get install -y xul-ext-adblock-plus
 sudo apt-get install -y adblock-plus
 
-sudo apt-get install -y indicator-applet-appmenu
-
-sudo apt-get install -y streamripper
+echo ** Ebook supprt
 sudo apt-get install -y calibre
 sudo apt-get install -y fbreader
 
-sudo apt-get install -y p7zip-full
-sudo apt-get install -y p7zip-rar
+echo ** Archive Files
+sudo apt-get install -y unace rar unrar p7zip-rar p7zip zip unzip sharutils uudeview mpack arj cabextract file-roller
 
+echo ** Disk Partition Manager
 sudo apt-get install -y gparted
 
+echo ** Astronomy
 sudo apt-get install -y celestia
 sudo apt-get install -y stellarium
+sudo apt-get install -y googleearth-package
+make-googleearth-package --force
 
+echo ** Sansa Fuze MP3 player support
 wget http://video4fuze.googlecode.com/files/fuzemux-0.1_amd64.deb
 wget http://video4fuze.googlecode.com/files/video4fuze-0.6_all.deb
 sudo dpkg -i fuzemux-0.1_amd64.deb
 sudo dpkg -i video4fuze-0.6_all.deb
 
-sudo apt-get install -y googleearth-package
-make-googleearth-package --force
+echo ** Backup and distribution creater
+wget http://sourceforge.net/projects/remastersys/files/remastersys-ubuntu-karmic-lucid-maverick/remastersys_2.0.18-1_all.deb
+sudo apt-get install -y remastersys remastersys-gui
 
-sudo add-apt-repository "deb http://www.remastersys.com/ubuntu precise main"
-wget -q "http://www.remastersys.com/ubuntu/remastersys.gpg.key" -O- | sudo apt-key add -
-sudo apt-get update && sudo apt-get install -y remastersys remastersys-gui
-
+echo ** Virtual Machine player
 wget http://download3.vmware.com/software/vmplayer/VMware-Player-5.0.2-1031769.x86_64.bundle 
 chmod +x VMware-Player-5.0.2-1031769.x86_64.bundle 
 sudo ./VMware-Player-5.0.2-1031769.x86_64.bundle 
 
+echo ** Azureus torrent/magnet peer-to-peer client
 sudo apt-get install -y azureus
 sudo apt-get install -y azupdater
 gconftool-2 -t string -s /desktop/gnome/url-handlers/magnet/command "/opt/azureus/azureus %s"
 gconftool-2 -s /desktop/gnome/url-handlers/magnet/needs_terminal false -t bool
 gconftool-2 -t bool -s /desktop/gnome/url-handlers/magnet/enabled true
 
+echo ** Programming
 sudo apt-get install -y monodevelop-latest
 sudo apt-get install -y Anjuta
 sudo apt-get install -y eclipse
+
+echo ** Boot-Repair Grub fixer
+sudo apt-get install -y boot-repair && boot-repair
+
+echo ** BleachBit system cleaner (similar to CCleaner)
+sudo apt-get install -y bleachbit
+
+echo ** Google Talk
+sudo apt-get install -y google-talkplugin
+
+echo ** More text editors
+sudo apt-get install -y gedit gedit-plugins gedit-developer-plugins
+sudo apt-get install -y geany geany-plugins
