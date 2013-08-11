@@ -7,6 +7,7 @@ wget --quiet http://dl.google.com/linux/linux_signing_key.pub -O - | sudo apt-ke
 
 sudo add-apt-repository "deb http://packages.medibuntu.org/ $(lsb_release -sc) free non-free" 
 sudo add-apt-repository ppa:n-muench/vlc
+sudo add-apt-repository ppa:keks9n/monodevelop-latest
 sudo apt-get update
 
 wget http://www.truecrypt.org/download/truecrypt-7.1a-linux-x86.tar.gz
@@ -15,29 +16,31 @@ tar -zxvf truecrypt-7.1a-linux-x64.tar.gz
 chmod +x  truecrypt-7.1a-setup-x64
 sudo ./truecrypt-7.1a-setup-x64
 
-sudo apt-get install build-essential linux-headers-$(uname -r)
+sudo apt-get install -y build-essential linux-headers-$(uname -r)
+
 sudo apt-get install -y bleachbit
+
+sudo apt-get install -y ubuntu-restricted-extras
 sudo apt-get install -y app-install-data-medibuntu apport-hooks-medibuntu
 sudo apt-get install -y w64codecs libdvdcss2
 sudo apt-get install -y libdvdnav4
 sudo apt-get install -y libdvdread4
 sudo /usr/share/doc/libdvdread4/./install-css.sh
 
-sudo apt-get install -y ubuntu-restricted-extras
-
-sudo apt-get install -y ia32-libs
-
-sudo apt-get install -y firefox
-
-sudo apt-get install -y xul-ext-adblock-plus
-sudo apt-get install adblock-plus
-sudo apt-get install indicator-applet-appmenu
-
 sudo apt-get install -y ffmpeg
 sudo apt-get install -y xmms2
 sudo apt-get install -y audacious
 sudo apt-get install -y vlc vlc-plugin-pulse
 sudo apt-get install -y mplayer2
+
+sudo apt-get install -y ia32-libs
+
+sudo apt-get install -y firefox
+sudo apt-get install -y xul-ext-adblock-plus
+sudo apt-get install -y adblock-plus
+
+sudo apt-get install -y indicator-applet-appmenu
+
 sudo apt-get install -y streamripper
 sudo apt-get install -y calibre
 sudo apt-get install -y fbreader
@@ -72,7 +75,6 @@ gconftool-2 -t string -s /desktop/gnome/url-handlers/magnet/command "/opt/azureu
 gconftool-2 -s /desktop/gnome/url-handlers/magnet/needs_terminal false -t bool
 gconftool-2 -t bool -s /desktop/gnome/url-handlers/magnet/enabled true
 
-sudo apt-get install -y xamarinstudio
-sudo apt-get install -y monodevelop
+sudo apt-get install -y monodevelop-latest
 sudo apt-get install -y Anjuta
 sudo apt-get install -y eclipse
