@@ -2,6 +2,8 @@ echo ** First look through the current Ubuntu Guide and debianhelp's "To Do List
 echo ** httphttp://ubuntuguide.org/
 echo ** http://debianhelp.wordpress.com/
 
+echo ** Only copy-and-paste the lines into the console needed for that machine.
+
 wget --quiet http://packages.medibuntu.org/medibuntu-key.gpg -O - | sudo apt-key add -
 wget --quiet http://dl.google.com/linux/linux_signing_key.pub -O - | sudo apt-key add -
 wget -q "http://www.remastersys.com/ubuntu/remastersys.gpg.key" -O- | sudo apt-key add -
@@ -86,6 +88,7 @@ sudo dpkg -i video4fuze-0.6_all.deb
 echo ** Backup and distribution creater
 wget http://sourceforge.net/projects/remastersys/files/remastersys-ubuntu-karmic-lucid-maverick/remastersys_2.0.18-1_all.deb
 sudo apt-get install -y remastersys remastersys-gui
+sudo apt-get install -y aptoncd
 
 echo ** Virtual Machine player
 wget http://download3.vmware.com/software/vmplayer/VMware-Player-5.0.2-1031769.x86_64.bundle 
