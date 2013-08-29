@@ -8,6 +8,8 @@ echo ** Only copy-and-paste the lines into the console needed for that machine.
 echo Note for running lubuntu 12.10 live CD on PowerPC G4 to get better resolution
 echo At the prompt type:  live nomodeset video=radeonfb:1024x768-32@60
 
+echo For lubunutu's Digital Clock use a time format like: %a %b %e %I:%M %p 
+
 echo ** Git distributed version control 
 sudo apt-get install -y git
 sudo apt-get install -y git-cola
