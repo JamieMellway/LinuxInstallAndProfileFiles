@@ -1,22 +1,50 @@
 echo ** First look through the current Ubuntu Guide and debianhelp's "To Do List After Installing" for changes and ideas.  
 echo ** httphttp://ubuntuguide.org/
 echo ** http://debianhelp.wordpress.com/
+echo ** https://wiki.ubuntu.com/PowerPCFAQ
 
 echo ** Only copy-and-paste the lines into the console needed for that machine.
+
+echo Note for running lubuntu 12.10 lice CD on PowerPC G4 to get better resolution
+echo At the prompt type:  live nomodeset video=radeonfb:1024x768-32@60
+
+echo ** Git distributed version control 
+sudo apt-get install -y git
+sudo apt-get install -y git-cola
+sudo apt-get install -y GitEye
+git config --global user.name "Jamie Mellway"
+git config --global user.email "jamie.mellway@gmail.com"
+git config --global credential.helper cache
 
 wget --quiet http://packages.medibuntu.org/medibuntu-key.gpg -O - | sudo apt-key add -
 wget --quiet http://dl.google.com/linux/linux_signing_key.pub -O - | sudo apt-key add -
 wget -q "http://www.remastersys.com/ubuntu/remastersys.gpg.key" -O- | sudo apt-key add -
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+
+echo Add Google Talk repository (skip on PowerPC)
 sudo sh -c 'echo "deb http://dl.google.com/linux/talkplugin/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 
-sudo add-apt-repository "deb http://packages.medibuntu.org/ $(lsb_release -sc) free non-free" 
-sudo add-apt-repository ppa:n-muench/vlc
-sudo add-apt-repository ppa:keks9n/monodevelop-latest
-sudo add-apt-repository "deb http://www.remastersys.com/ubuntu precise main"
-sudo add-apt-repository ppa:stebbins/handbrake-releases
-sudo add-apt-repository ppa:yannubuntu/boot-repair
+echo Add repositories (skip remaster on PowerPC)
+#sudo add-apt-repository -y "deb http://packages.medibuntu.org/ $(lsb_release -sc) free non-free" 
+sudo add-apt-repository -y ppa:n-muench/vlc
+sudo add-apt-repository -y ppa:keks9n/monodevelop-latest
+sudo add-apt-repository -y "deb http://www.remastersys.com/ubuntu precise main"
+sudo add-apt-repository -y ppa:stebbins/handbrake-releases
+sudo add-apt-repository -y ppa:yannubuntu/boot-repair
 sudo apt-get update
+
+echo New way to Setup Medibuntu (PowerPC not supported)
+sudo wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list
+sudo apt-get --quiet update
+sudo apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring
+sudo apt-get --quiet update
+
+echo Medibuntu on PowerPC
+wget -q http://packages.medibuntu.org/pool/free/libd/libdvdcss/libdvdcss2_1.2.10-0.2medibuntu1_powerpc.deb 
+sudo dpkg -i libdvdcss2_1.2.10-0.2medibuntu1_powerpc.deb
+wget -q  http://packages.medibuntu.org/pool/non-free/p/ppc-codecs/ppc-codecs_20071007-0medibuntu1_powerpc.deb
+sudo apt-get install -y libstdc++5
+sudo dpkg -i ppc-codecs_20071007-0medibuntu1_powerpc.deb
 
 echo ** Gnome Fallback
 sudo apt-get install -y gnome-shell
@@ -25,10 +53,19 @@ sudo apt-get install -y indicator-applet-appmenu
 sudo apt-get install -y gnome-tweak-tool
 
 echo ** Build Essentials
-sudo apt-get install -y build-essential linux-headers-$(uname -r) checkinstall cdbs devscripts dh-make fakeroot libxml-parser-perl check avahi-daemon
+sudo apt-get install -y build-essential 
+sudo apt-get install -y linux-headers-$(uname -r) 
+sudo apt-get install -y checkinstall 
+sudo apt-get install -y cdbs 
+sudo apt-get install -y devscripts 
+sudo apt-get install -y dh-make 
+sudo apt-get install -y fakeroot 
+sudo apt-get install -y libxml-parser-perl 
+sudo apt-get install -y check 
+sudo apt-get install -y avahi-daemon
 
 echo ** TrueCrypt disk encryption software 
-wget http://www.truecrypt.org/download/truecrypt-7.1a-linux-x86.tar.gz
+#wget http://www.truecrypt.org/download/truecrypt-7.1a-linux-x86.tar.gz
 wget http://www.truecrypt.org/download/truecrypt-7.1a-linux-x64.tar.gz
 tar -zxvf truecrypt-7.1a-linux-x64.tar.gz
 chmod +x  truecrypt-7.1a-setup-x64
@@ -40,8 +77,10 @@ sudo apt-get install -y gconf-editor
 echo ** "Open terminal here" context menu in Nautilus 
 nautilus-open-terminal 
 
-echo ** Media support
+echo ** Media support (need to click on EULA)
 sudo apt-get install -y ubuntu-restricted-extras
+
+echo ** More media support
 sudo apt-get install -y app-install-data-medibuntu apport-hooks-medibuntu
 sudo apt-get install -y ffmpeg
 sudo apt-get install -y xmms2
@@ -52,30 +91,48 @@ sudo apt-get install -y streamripper
 sudo apt-get install -y mencoder
 
 echo ** DVD Support
-sudo apt-get install -y w64codecs libdvdcss2
+sudo apt-get install -y w64codecs 
+sudo apt-get install -y libdvdcss2
 sudo apt-get install -y libdvdnav4
 sudo apt-get install -y libdvdread4
 sudo /usr/share/doc/libdvdread4/./install-css.sh
 sudo apt-get install -y k3b libk3b6-extracodecs
 sudo apt-get install -y handbrake-gtk handbrake-cli
 sudo apt-get install -y k9copy
-sudo apt-get install -y dvdrip rar
+sudo apt-get install -y dvdrip 
 sudo apt-get install -y acidrip
 
-echo ** 32bit support on 64bit system
+echo ** 32bit support on 64bit system (not sure this is still relevant)
 sudo apt-get install -y ia32-libs
 
 echo ** Firefox with AdBlock Plus
 sudo apt-get install -y firefox
-sudo apt-get install -y xul-ext-adblock-plus
-sudo apt-get install -y adblock-plus
+#sudo apt-get install -y xul-ext-adblock-plus
+#sudo apt-get install -y adblock-plus
+wget https://addons.mozilla.org/firefox/downloads/latest/1865/addon-1865-latest.xpi #Adblock Plus
+wget https://addons.mozilla.org/firefox/downloads/latest/433/addon-433-latest.xpi #Flashblock
+wget https://addons.mozilla.org/firefox/downloads/latest/3006/addon-3006-latest.xpi #Download helper
+firefox *.xpi 
+rm *.xpi
 
 echo ** Ebook supprt
 sudo apt-get install -y calibre
 sudo apt-get install -y fbreader
 
 echo ** Archive Files
-sudo apt-get install -y unace rar unrar p7zip-rar p7zip zip unzip sharutils uudeview mpack arj cabextract file-roller
+sudo apt-get install -y unace 
+sudo apt-get install -y rar
+sudo apt-get install -y unrar
+sudo apt-get install -y p7zip-rar
+sudo apt-get install -y p7zip
+sudo apt-get install -y zip
+sudo apt-get install -y unzip
+sudo apt-get install -y sharutils
+sudo apt-get install -y uudeview
+sudo apt-get install -y mpack
+sudo apt-get install -y arj
+sudo apt-get install -y cabextract
+sudo apt-get install -y file-roller
 
 echo ** Disk Partition Manager
 sudo apt-get install -y gparted
