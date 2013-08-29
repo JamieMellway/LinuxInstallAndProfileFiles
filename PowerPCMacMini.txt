@@ -1,0 +1,59 @@
+PowerPC Mac Mini G4
+===================
+
+When I installed on an old 32bit Mac Mini G4 with PowerPC it required a few changes to the usual procedure.
+
+See https://wiki.ubuntu.com/PowerPCFAQ
+and https://wiki.ubuntu.com/PowerPCKnownIssues
+
+Ubuntu 13.04 live CD didn't work for me.  It booted up to an splotchy GUI.
+
+The lubuntu 12.10 live cd was better, but I needed to boot with the follow line to improve the GUI:
+live nomodeset video=radeonfb:1024x768-32@60
+
+The default partition didn't work at first attempt, but for whatever reason it worked fine after the Leopard partition was gone.
+
+It generated: 
+        #                    type name                  length   base      ( size )  system
+/dev/sda1     Apple_partition_map Apple                     63 @ 1         ( 31.5k)  Partition map
+/dev/sda2         Apple_Bootstrap untitled                1954 @ 64        (977.0k)  NewWorld bootblock
+/dev/sda3         Apple_UNIX_SVR2 untitled           150292969 @ 2018      ( 71.7G)  Linux native
+/dev/sda4         Apple_UNIX_SVR2 swap                 6006452 @ 150294987 (  2.9G)  Linux swap
+/dev/sda5              Apple_Free Extra                     49 @ 156301439 ( 24.5k)  Free space
+
+Some of the repositories I usually add did not work.  
+Don't add the normal Medibuntu, Google Talk, or remastersys repositories. 
+
+For Medibuntu on PowerPC, you need to get the individual packages instead: 
+wget -q http://packages.medibuntu.org/pool/free/libd/libdvdcss/libdvdcss2_1.2.10-0.2medibuntu1_powerpc.deb 
+sudo dpkg -i libdvdcss2_1.2.10-0.2medibuntu1_powerpc.deb
+wget -q  http://packages.medibuntu.org/pool/non-free/p/ppc-codecs/ppc-codecs_20071007-0medibuntu1_powerpc.deb
+sudo apt-get install -y libstdc++5
+sudo dpkg -i ppc-codecs_20071007-0medibuntu1_powerpc.deb
+
+Also get the lubuntu version of the restricted extras
+sudo apt-get install -y lubuntu-restricted-extras
+
+Flash does not work on PowerPC, so use Gnash or Lightspark
+sudo apt-get install -y mozilla-plugin-gnash
+
+Google Chrome is not available
+
+For lubunutu's Digital Clock use a time format like: %a %b %e %I:%M %p 
+
+Audio does not work at first. See https://wiki.ubuntu.com/PowerPCKnownIssues#A12.10_Quantal_Quetzal
+Comment out the 5 snd-aoa blacklisted modules and add those to the modules.  
+
+sudo nano /etc/modprobe.d/blacklist.local.conf 
+#blacklist snd-aoa-codec-tas
+#blacklist snd-aoa-fabric-layout
+#blacklist snd-aoa-i2sbus
+#blacklist snd-aoa-soundbus
+#blacklist snd-aoa
+
+sudo nano /etc/modules
+snd-aoa-codec-tas
+snd-aoa-fabric-layout
+snd-aoa-i2sbus
+snd-aoa-soundbus
+snd-aoa
