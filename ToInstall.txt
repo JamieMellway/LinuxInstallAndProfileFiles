@@ -5,7 +5,7 @@ echo ** https://wiki.ubuntu.com/PowerPCFAQ
 
 echo ** Only copy-and-paste the lines into the console needed for that machine.
 
-echo Note for running lubuntu 12.10 lice CD on PowerPC G4 to get better resolution
+echo Note for running lubuntu 12.10 live CD on PowerPC G4 to get better resolution
 echo At the prompt type:  live nomodeset video=radeonfb:1024x768-32@60
 
 echo ** Git distributed version control 
@@ -28,7 +28,7 @@ echo Add repositories (skip remaster on PowerPC)
 #sudo add-apt-repository -y "deb http://packages.medibuntu.org/ $(lsb_release -sc) free non-free" 
 sudo add-apt-repository -y ppa:n-muench/vlc
 sudo add-apt-repository -y ppa:keks9n/monodevelop-latest
-sudo add-apt-repository -y "deb http://www.remastersys.com/ubuntu precise main"
+sudo add-apt-repository -y "deb http://www.remastersys.com/ubuntu $(lsb_release -sc) main"
 sudo add-apt-repository -y ppa:stebbins/handbrake-releases
 sudo add-apt-repository -y ppa:yannubuntu/boot-repair
 sudo apt-get update
@@ -121,7 +121,7 @@ sudo apt-get install -y fbreader
 
 echo ** Archive Files
 sudo apt-get install -y unace 
-sudo apt-get install -y rar
+#sudo apt-get install -y rar
 sudo apt-get install -y unrar
 sudo apt-get install -y p7zip-rar
 sudo apt-get install -y p7zip
@@ -142,6 +142,7 @@ sudo apt-get install -y celestia
 sudo apt-get install -y stellarium
 sudo apt-get install -y googleearth-package
 make-googleearth-package --force
+sudo dpkg -i googleearth*.deb
 
 echo ** Sansa Fuze MP3 player support
 wget http://video4fuze.googlecode.com/files/fuzemux-0.1_amd64.deb
@@ -161,7 +162,7 @@ sudo ./VMware-Player-5.0.2-1031769.x86_64.bundle
 
 echo ** Azureus torrent/magnet peer-to-peer client
 sudo apt-get install -y azureus
-sudo apt-get install -y azupdater
+#sudo apt-get install -y azupdater
 gconftool-2 -t string -s /desktop/gnome/url-handlers/magnet/command "/opt/azureus/azureus %s"
 gconftool-2 -s /desktop/gnome/url-handlers/magnet/needs_terminal false -t bool
 gconftool-2 -t bool -s /desktop/gnome/url-handlers/magnet/enabled true
